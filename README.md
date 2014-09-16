@@ -26,3 +26,9 @@ The JSON Response exists now only of the url to the file. Nothing more is needed
     url: <URL TO FILE HERE>
 }]
 ```
+
+### Roadmap
+I want to add the following features in the future.
+
+- Different listing types, not just thumbnails
+- Hooks so you can further customize and control the user experience
