@@ -11,7 +11,7 @@ You can build this together with CKEditor. You will need to configure this after
 CKEDITOR.config.extraPlugins = 'simple-image-browser';
 
 // Add this line anyways. You need it to get your images.
-CKEDITOR.config.simpleBrowserURL = <INSERT URL TO AJAX FILE HERE>;
+CKEDITOR.config.simpleImageBrowserURL = <INSERT URL TO AJAX FILE HERE>;
 ```
 
 ### JSON Response
