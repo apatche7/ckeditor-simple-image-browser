@@ -75,7 +75,7 @@ CKEDITOR.plugins.add 'simple-image-browser', {
             dialog = event.data
             if dialog.getName() == 'simple-image-browser-dialog'
                 $.get CKEDITOR.config.simpleImageBrowserURL, (images) ->
-                    console.log images if CKEDITOR.config.simpleImageBrowserDebug
+                    console.log images
                     json = $.parseJSON images
                     images = ''
                     $.each json, (key, value) ->
