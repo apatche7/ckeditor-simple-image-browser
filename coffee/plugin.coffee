@@ -75,12 +75,12 @@ CKEDITOR.plugins.add 'simple-image-browser', {
             dialog = event.data
             if dialog.getName() == 'simple-image-browser-dialog'
                 $.get CKEDITOR.config.simpleImageBrowserURL, (images) ->
-                    console.log images if CKEDITOR.config.simpleImageBrowserDebug
+                    console.log images
                     json = $.parseJSON images
                     images = ''
                     $.each json, (key, value) ->
                         if CKEDITOR.config.simpleImageBrowserListType == 'thumbnails'
-                            images = images + '<div onclick="insertSimpleBrowserPicture(\''+value.url+'\');" style="position:relative;width:75px;height:75px;margin:5px;background-image:url(\''+value.url+'\');background-repeat:no-repeat;background-size:125%;background-position:center center;float:left;"></div>'
+                            images = images + '<div onclick="CKEDITOR.tools.simpleimagebrowserinsertpicture(\''+value.url+'\');" style="position:relative;width:75px;height:75px;margin:5px;background-image:url(\''+value.url+'\');background-repeat:no-repeat;background-size:125%;background-position:center center;float:left;"></div>'
                         else
                             images = 'link'
                         return
@@ -92,6 +92,20 @@ CKEDITOR.plugins.add 'simple-image-browser', {
             Add the command to open the dialog window.
         ###
         editor.addCommand 'simple-image-browser-start', new CKEDITOR.dialogCommand 'simple-image-browser-dialog'
+ 
+ 
+        ###
+            The method that injects the image into the editor.
+        ###
+        CKEDITOR.tools.simpleimagebrowserinsertpicture = (event) ->
+            console.log event
+            editor = CKEDITOR.currentInstance
+            dialog = CKEDITOR.dialog.getCurrent()
+            html = '<img src="'+event+'" data-cke-saved-src="'+event+'" alt="'+event+'" />'
+            editor.config.allowedContent = true;
+            editor.insertHtml html.trim()
+            dialog.hide();
+            return
  
         ###
             Add a button to the editor to fire the command that opens the dialog
@@ -105,15 +119,3 @@ CKEDITOR.plugins.add 'simple-image-browser', {
         return
         
 }
-
-###
-    The method that injects the image into the editor.
-###
-insertSimpleBrowserPicture = (image) ->
-    editor = CKEDITOR.currentInstance
-    dialog = CKEDITOR.dialog.getCurrent()
-    html = '<img src="'+image+'" data-cke-saved-src="'+image+'" alt="'+image+'" />'
-    editor.config.allowedContent = true;
-    editor.insertHtml html.trim()
-    dialog.hide();
-    return
